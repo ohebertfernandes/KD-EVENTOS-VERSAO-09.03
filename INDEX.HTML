@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KD Eventos | A plataforma definitiva para o seu evento</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Inter para UI moderna, Playfair para toques de elegância -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+
+    <!-- Configuração Tailwind (Preto, Branco e Azul Suave) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#8ba2b6', // Azul suave / acinzentado elegante
+                            bluelight: '#e2e8f0', // Fundo azul bem claro
+                            dark: '#0a0a0a', // Preto quase absoluto
+                            gray: '#171717', // Cinza escuro para seções
+                            light: '#ffffff' // Branco puro
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'slide-in': 'slideIn 0.4s ease-out forwards',
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        slideIn: {
+                            '0%': { opacity: '0', transform: 'translateX(20px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #ffffff; color: #0a0a0a; }
+        
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+        }
+        
+        .dark-glass {
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(16px);
+        }
+
+        .bg-pattern-dark {
+            background-color: #0a0a0a;
+            background-image: radial-gradient(#262626 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        /* Typing effect cursor */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+            color: #8ba2b6;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        /* Custom Checkbox/Radio */
+        .form-checkbox:checked, .form-radio:checked {
+            background-color: #8ba2b6;
+            border-color: #8ba2b6;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-blue selection:text-white">
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-50 glass-nav border-b border-slate-100 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <!-- Placeholder para Logo PNG -->
+                    <div class="w-10 h-10 bg-brand-dark rounded-none flex items-center justify-center text-white font-serif font-bold text-xl tracking-tighter">
+                        KD
+                    </div>
+                    <span class="font-extrabold text-2xl tracking-tight text-brand-dark">KD<span class="text-brand-blue font-light">Eventos</span></span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#inicio" class="text-sm font-semibold text-slate-500 hover:text-brand-dark transition">Início</a>
+                    <a href="#fornecedores" class="text-sm font-semibold text-slate-500 hover:text-brand-dark transition">Explorar</a>
+                    <a href="#ia-planner" class="text-sm font-bold text-brand-blue hover:text-brand-dark transition flex items-center gap-1">
+                        <i class="fa-solid fa-sparkles"></i> Monte seu Evento
+                    </a>
+                </div>
+
+                <!-- B2B CTA -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#novos-fornecedores" class="text-sm font-bold text-brand-dark hover:text-brand-blue transition border-b-2 border-transparent hover:border-brand-blue pb-1">
+                        Área de Fornecedores
+                    </a>
+                    <button class="bg-brand-dark hover:bg-black text-white px-6 py-2.5 rounded-sm text-sm font-semibold transition shadow-lg">
+                        Login
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="relative pt-32 pb-24 lg:pt-48 lg:pb-32 bg-pattern-dark overflow-hidden">
+        <!-- Elementos decorativos minimalistas -->
+        <div class="absolute top-20 left-10 w-64 h-64 bg-brand-blue rounded-full mix-blend-screen filter blur-[100px] opacity-20 animate-pulse-slow"></div>
+        <div class="absolute bottom-10 right-10 w-80 h-80 bg-white rounded-full mix-blend-overlay filter blur-[120px] opacity-10"></div>
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <p class="text-brand-blue font-semibold tracking-widest uppercase text-xs mb-4">A excelência em celebrações</p>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6 leading-tight">
+                A festa perfeita exige <br class="hidden md:block">
+                <span class="font-serif italic font-normal text-brand-blue">as escolhas certas.</span>
+            </h1>
+            <p class="text-lg text-slate-400 mb-12 max-w-2xl mx-auto font-light">
+                Encontre, compare e reserve os espaços e profissionais mais exclusivos da sua região. Ou deixe nossa Inteligência Artificial guiar seu planejamento.
+            </p>
+
+            <!-- Search Component (High Contrast) -->
+            <div class="bg-white p-2 rounded-lg shadow-2xl max-w-4xl mx-auto flex flex-col md:flex-row gap-2 border border-slate-200">
+                <div class="flex-1 flex items-center px-4 py-4 md:py-2 border-b md:border-b-0 md:border-r border-slate-100">
+                    <i class="fa-solid fa-magnifying-glass text-brand-blue mr-3 text-lg"></i>
+                    <input type="text" placeholder="Ex: Fotógrafo, Buffet, Chácara" class="w-full focus:outline-none text-brand-dark bg-transparent placeholder-slate-400 font-medium">
+                </div>
+                <div class="flex-1 flex items-center px-4 py-4 md:py-2 border-b md:border-b-0 border-slate-100">
+                    <i class="fa-solid fa-location-dot text-brand-blue mr-3 text-lg"></i>
+                    <input type="text" placeholder="Sua cidade (Ex: Campinas)" class="w-full focus:outline-none text-brand-dark bg-transparent placeholder-slate-400 font-medium">
+                </div>
+                <button class="bg-brand-dark hover:bg-black text-white font-bold py-4 md:py-3 px-10 rounded-md transition flex items-center justify-center gap-2 w-full md:w-auto">
+                    Buscar
+                </button>
+            </div>
+            
+            <div class="mt-10 flex justify-center gap-3 flex-wrap text-xs font-semibold text-slate-300">
+                <span class="border border-slate-700 px-4 py-2 rounded-full cursor-pointer hover:bg-white hover:text-black transition">Casamentos</span>
+                <span class="border border-slate-700 px-4 py-2 rounded-full cursor-pointer hover:bg-white hover:text-black transition">Eventos Corporativos</span>
+                <span class="border border-slate-700 px-4 py-2 rounded-full cursor-pointer hover:bg-white hover:text-black transition">15 Anos</span>
+                <span class="border border-slate-700 px-4 py-2 rounded-full cursor-pointer hover:bg-white hover:text-black transition">Formaturas</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- IA PLANNER SECTION -->
+    <section id="ia-planner" class="py-24 bg-brand-bluelight">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-2xl overflow-hidden shadow-xl flex flex-col lg:flex-row border border-white">
+                
+                <!-- Info -->
+                <div class="lg:w-1/2 p-10 lg:p-16 flex flex-col justify-center relative">
+                    <div class="inline-flex items-center gap-2 bg-slate-100 text-brand-dark px-4 py-2 rounded-full w-fit mb-6 text-xs font-bold uppercase tracking-widest border border-slate-200">
+                        <i class="fa-solid fa-wand-magic-sparkles text-brand-blue"></i> IA Concierge
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-brand-dark">Sem tempo a perder?</h2>
+                    <p class="text-slate-500 text-lg mb-10 font-light leading-relaxed">
+                        Converse com nosso assistente virtual. Diga o que você quer comemorar e nós geramos o checklist exato, com orçamentos e indicações dos fornecedores Top 1 da sua cidade.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-1"><i class="fa-solid fa-check"></i></div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Checklist Completo</h4>
+                                <p class="text-sm text-slate-500 mt-1">Do espaço à lembrancinha, gerado em segundos.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-1"><i class="fa-solid fa-gem"></i></div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">Fornecedores Premium</h4>
+                                <p class="text-sm text-slate-500 mt-1">Acesso direto aos profissionais mais qualificados da KD.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat UI -->
+                <div class="lg:w-1/2 bg-slate-50 p-6 md:p-10 border-l border-slate-100 flex flex-col">
+                    <div class="flex-1 bg-white rounded-xl shadow-sm border border-slate-200 p-4 flex flex-col h-[450px]">
+                        
+                        <div id="chat-messages" class="flex-1 overflow-y-auto pr-2 flex flex-col gap-4">
+                            <div class="flex gap-3 max-w-[85%] animate-fade-in">
+                                <div class="w-8 h-8 bg-brand-dark flex items-center justify-center text-white shrink-0 mt-1">
+                                    <span class="font-serif text-xs font-bold">KD</span>
+                                </div>
+                                <div class="bg-slate-100 text-slate-700 px-4 py-3 rounded-tr-xl rounded-br-xl rounded-bl-xl text-sm leading-relaxed border border-slate-200">
+                                    Olá! Sou seu concierge de eventos. O que vamos celebrar e em qual data?
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-3 max-w-[85%] self-end flex-row-reverse opacity-70">
+                                <div class="w-8 h-8 bg-slate-200 flex items-center justify-center text-slate-500 shrink-0 mt-1 rounded-full">
+                                    <i class="fa-solid fa-user text-xs"></i>
+                                </div>
+                                <div class="bg-brand-dark text-white px-4 py-3 rounded-tl-xl rounded-bl-xl rounded-br-xl text-sm leading-relaxed">
+                                    Vou fazer um evento corporativo para 100 pessoas em novembro, em Piracicaba.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-4 border-t border-slate-100 relative">
+                            <div class="flex items-center bg-white border-2 border-slate-200 rounded-lg p-1 pl-4 focus-within:border-brand-blue transition-all">
+                                <input type="text" id="ai-input" placeholder="Descreva sua ideia..." class="w-full bg-transparent border-none focus:outline-none text-sm text-brand-dark font-medium" onkeypress="handleAIPress(event)">
+                                <button onclick="simulateAI()" id="ai-btn" class="w-10 h-10 bg-brand-blue hover:bg-brand-dark text-white flex items-center justify-center shrink-0 transition rounded-md">
+                                    <i class="fa-solid fa-arrow-up"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VITRINE CLIENTES -->
+    <section id="fornecedores" class="py-24 bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+                <div>
+                    <h2 class="font-serif italic text-brand-blue text-xl mb-2">Seleção Exclusiva</h2>
+                    <h3 class="text-3xl font-extrabold text-brand-dark tracking-tight">Melhores da Cidade</h3>
+                </div>
+                <button class="text-sm font-bold text-brand-dark border-b border-brand-dark pb-1 hover:text-brand-blue hover:border-brand-blue transition">Explorar Ranking Completo</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Card Elite/Premium -->
+                <div class="group cursor-pointer">
+                    <div class="relative h-72 w-full overflow-hidden rounded-lg mb-4">
+                        <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&q=80&w=800" alt="Espaço" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                        <div class="absolute top-4 left-4 bg-brand-dark text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 flex items-center gap-2 rounded-sm shadow-lg">
+                            <i class="fa-solid fa-crown text-brand-blue"></i> Elite Partner KD
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-xs font-bold text-brand-blue uppercase tracking-widest mb-1">Espaço / Fazenda</p>
+                            <h4 class="text-xl font-bold text-brand-dark">Villa das Flores</h4>
+                            <p class="text-sm text-slate-500 mt-1">Piracicaba, SP</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="flex items-center gap-1 text-brand-dark font-bold text-sm">
+                                <i class="fa-solid fa-star text-brand-blue text-xs"></i> 5.0
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Premium -->
+                <div class="group cursor-pointer">
+                    <div class="relative h-72 w-full overflow-hidden rounded-lg mb-4">
+                        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=800" alt="Fotografia" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                        <div class="absolute top-4 left-4 bg-white text-brand-dark border border-slate-200 text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 flex items-center gap-2 rounded-sm shadow-md">
+                            <i class="fa-solid fa-certificate text-brand-blue"></i> Premium
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-xs font-bold text-brand-blue uppercase tracking-widest mb-1">Fotografia & Filmagem</p>
+                            <h4 class="text-xl font-bold text-brand-dark">Studio Lumière</h4>
+                            <p class="text-sm text-slate-500 mt-1">Americana, SP</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="flex items-center gap-1 text-brand-dark font-bold text-sm">
+                                <i class="fa-solid fa-star text-brand-blue text-xs"></i> 4.9
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card PRO -->
+                <div class="group cursor-pointer">
+                    <div class="relative h-72 w-full overflow-hidden rounded-lg mb-4">
+                        <img src="https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&q=80&w=800" alt="Buffet" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                        <div class="absolute top-4 left-4 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 flex items-center gap-2 rounded-sm">
+                            <i class="fa-solid fa-check-circle text-green-600"></i> Verificado
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-xs font-bold text-brand-blue uppercase tracking-widest mb-1">Gastronomia / Buffet</p>
+                            <h4 class="text-xl font-bold text-brand-dark">Sabor & Arte Eventos</h4>
+                            <p class="text-sm text-slate-500 mt-1">Campinas, SP</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="flex items-center gap-1 text-brand-dark font-bold text-sm">
+                                <i class="fa-solid fa-star text-brand-blue text-xs"></i> 4.8
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- B2B MARKETING & PLANOS -->
+    <section id="novos-fornecedores" class="py-24 bg-brand-dark text-white relative">
+        <!-- Textura de fundo -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 24px 24px;"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Header B2B -->
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <span class="text-brand-blue font-bold tracking-widest uppercase text-sm mb-4 block">Parcerias Estratégicas</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">Você não vende planos. <br>Você vende <span class="font-serif italic text-brand-blue font-normal">agenda cheia.</span></h2>
+                <p class="text-slate-400 text-lg">
+                    Junte-se ao maior marketplace regional. Clientes qualificados, relatórios precisos e posicionamento premium para quem quer dominar o mercado de eventos.
+                </p>
+            </div>
+
+            <!-- Tabela de Planos -->
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-24">
+                
+                <!-- START -->
+                <div class="bg-brand-gray border border-slate-800 rounded-xl p-8 hover:border-slate-600 transition flex flex-col">
+                    <h3 class="text-xl font-bold mb-2">Start</h3>
+                    <p class="text-slate-400 text-sm mb-6 h-10">Presença digital essencial na plataforma.</p>
+                    <div class="mb-6">
+                        <span class="text-3xl font-extrabold">R$ 79</span><span class="text-slate-500">/mês</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 text-sm text-slate-300 flex-1">
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-slate-500 mt-1"></i> Perfil com 10 fotos</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-slate-500 mt-1"></i> Contato via formulário</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-slate-500 mt-1"></i> Exibição geral</li>
+                    </ul>
+                    <button class="w-full py-3 border border-slate-700 text-white rounded-md font-semibold hover:bg-slate-800 transition">Selecionar Start</button>
+                </div>
+
+                <!-- PRO -->
+                <div class="bg-slate-900 border border-brand-blue/30 rounded-xl p-8 relative transform xl:-translate-y-4 shadow-[0_0_30px_rgba(139,162,182,0.1)] flex flex-col">
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-brand-blue text-brand-dark text-xs font-bold px-4 py-1 rounded-full uppercase tracking-widest">
+                        Mais Vendido
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-brand-blue">Pro</h3>
+                    <p class="text-slate-400 text-sm mb-6 h-10">Atraia mais clientes e feche negócios direto no WhatsApp.</p>
+                    <div class="mb-6">
+                        <span class="text-3xl font-extrabold">R$ 149</span><span class="text-slate-500">/mês</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 text-sm text-slate-300 flex-1">
+                        <li class="flex gap-3 font-semibold text-white"><i class="fa-solid fa-check text-brand-blue mt-1"></i> Link direto pro WhatsApp</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-brand-blue mt-1"></i> Selo Fornecedor Verificado</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-brand-blue mt-1"></i> Destaque intermediário</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-brand-blue mt-1"></i> Até 30 fotos</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-brand-blue mt-1"></i> Relatório de views</li>
+                    </ul>
+                    <button class="w-full py-3 bg-brand-blue hover:bg-white text-brand-dark rounded-md font-bold transition">Selecionar Pro</button>
+                </div>
+
+                <!-- PREMIUM -->
+                <div class="bg-brand-gray border border-slate-800 rounded-xl p-8 hover:border-slate-600 transition flex flex-col">
+                    <h3 class="text-xl font-bold mb-2 text-white">Premium</h3>
+                    <p class="text-slate-400 text-sm mb-6 h-10">Domine sua categoria e receba leads prioritários.</p>
+                    <div class="mb-6">
+                        <span class="text-3xl font-extrabold">R$ 297</span><span class="text-slate-500">/mês</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 text-sm text-slate-300 flex-1">
+                        <li class="flex gap-3"><i class="fa-solid fa-gem text-blue-400 mt-1"></i> Topo da busca na categoria</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-slate-500 mt-1"></i> Banner na página da cidade</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-slate-500 mt-1"></i> Lead prioritário</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-slate-500 mt-1"></i> Destaque no Instagram KD</li>
+                    </ul>
+                    <button class="w-full py-3 border border-slate-700 text-white rounded-md font-semibold hover:bg-slate-800 transition">Selecionar Premium</button>
+                </div>
+
+                <!-- ELITE -->
+                <div class="bg-gradient-to-b from-brand-gray to-[#111] border border-slate-700 rounded-xl p-8 relative flex flex-col overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-yellow-600/10 blur-[30px]"></div>
+                    <h3 class="text-xl font-bold mb-2 text-yellow-500 flex items-center gap-2"><i class="fa-solid fa-crown text-sm"></i> Elite</h3>
+                    <p class="text-slate-400 text-sm mb-6 h-10">Exclusividade máxima para os líderes do mercado.</p>
+                    <div class="mb-6">
+                        <span class="text-3xl font-extrabold text-white">R$ 497</span><span class="text-slate-500">/mês</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 text-sm text-slate-300 flex-1 relative z-10">
+                        <li class="flex gap-3 font-semibold text-white"><i class="fa-solid fa-star text-yellow-500 mt-1"></i> Exclusividade por categoria na cidade</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-yellow-700 mt-1"></i> 1º resultado fixo na busca</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-yellow-700 mt-1"></i> Página premium (mini-site)</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-yellow-700 mt-1"></i> Evento anual KD</li>
+                    </ul>
+                    <button class="w-full py-3 bg-white text-black rounded-md font-bold hover:bg-yellow-500 transition relative z-10">Seja Elite</button>
+                </div>
+
+            </div>
+
+            <!-- FORMULÁRIO DE CADASTRO - LOCAIS DE EVENTOS -->
+            <div class="bg-white rounded-xl shadow-2xl p-8 md:p-12 text-brand-dark max-w-4xl mx-auto">
+                <div class="mb-10 border-b border-slate-100 pb-6">
+                    <h2 class="text-3xl font-extrabold mb-2">Formulário de Cadastro</h2>
+                    <p class="text-slate-500">Cadastre seu <strong>Local de Evento</strong> e expanda seus negócios na KD Eventos.</p>
+                </div>
+
+                <form class="space-y-10">
+                    
+                    <!-- Seção 1 -->
+                    <div>
+                        <h3 class="font-bold text-lg mb-6 flex items-center gap-2 text-brand-dark"><i class="fa-solid fa-file-invoice text-brand-blue"></i> 1. Informações Básicas</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Nome do Espaço</label>
+                                <input type="text" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md focus:ring-2 focus:ring-brand-blue outline-none" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Nome da Empresa / Responsável</label>
+                                <input type="text" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md focus:ring-2 focus:ring-brand-blue outline-none" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">CPF ou CNPJ</label>
+                                <input type="text" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md focus:ring-2 focus:ring-brand-blue outline-none" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">E-mail</label>
+                                <input type="email" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md focus:ring-2 focus:ring-brand-blue outline-none" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Telefone (WhatsApp)</label>
+                                <input type="tel" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md focus:ring-2 focus:ring-brand-blue outline-none" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Telefone Secundário</label>
+                                <input type="tel" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md focus:ring-2 focus:ring-brand-blue outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Cidade</label>
+                                <input type="text" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md focus:ring-2 focus:ring-brand-blue outline-none" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Estado</label>
+                                <input type="text" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md focus:ring-2 focus:ring-brand-blue outline-none" required>
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Endereço Completo</label>
+                                <input type="text" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md focus:ring-2 focus:ring-brand-blue outline-none" required>
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Link do Google Maps</label>
+                                <input type="url" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md focus:ring-2 focus:ring-brand-blue outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Instagram</label>
+                                <input type="text" placeholder="@seu_espaço" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md focus:ring-2 focus:ring-brand-blue outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Site (se houver)</label>
+                                <input type="url" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md focus:ring-2 focus:ring-brand-blue outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seção 2 -->
+                    <div>
+                        <h3 class="font-bold text-lg mb-6 flex items-center gap-2 text-brand-dark"><i class="fa-solid fa-building text-brand-blue"></i> 2. Tipo de Espaço</h3>
+                        
+                        <label class="block text-sm font-bold text-slate-800 mb-3">Selecione o tipo de local:</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tipo_espaco" class="form-radio text-brand-blue focus:ring-brand-blue"> <span class="text-sm text-slate-600">Salão de festas</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tipo_espaco" class="form-radio text-brand-blue focus:ring-brand-blue"> <span class="text-sm text-slate-600">Casamento</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tipo_espaco" class="form-radio text-brand-blue focus:ring-brand-blue"> <span class="text-sm text-slate-600">Chácara/Sítio</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tipo_espaco" class="form-radio text-brand-blue focus:ring-brand-blue"> <span class="text-sm text-slate-600">Hotel</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tipo_espaco" class="form-radio text-brand-blue focus:ring-brand-blue"> <span class="text-sm text-slate-600">Auditório</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tipo_espaco" class="form-radio text-brand-blue focus:ring-brand-blue"> <span class="text-sm text-slate-600">Coworking</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tipo_espaco" class="form-radio text-brand-blue focus:ring-brand-blue"> <span class="text-sm text-slate-600">Restaurante</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tipo_espaco" class="form-radio text-brand-blue focus:ring-brand-blue"> <span class="text-sm text-slate-600">Casa de eventos</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tipo_espaco" class="form-radio text-brand-blue focus:ring-brand-blue"> <span class="text-sm text-slate-600">Área externa</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="tipo_espaco" class="form-radio text-brand-blue focus:ring-brand-blue"> <span class="text-sm text-slate-600">Outro</span></label>
+                        </div>
+
+                        <label class="block text-sm font-bold text-slate-800 mb-3">Tipos de eventos permitidos (múltipla escolha):</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="form-checkbox text-brand-blue rounded focus:ring-brand-blue"> <span class="text-sm text-slate-600">Casamento</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="form-checkbox text-brand-blue rounded focus:ring-brand-blue"> <span class="text-sm text-slate-600">Corporativo</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="form-checkbox text-brand-blue rounded focus:ring-brand-blue"> <span class="text-sm text-slate-600">Aniversário</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="form-checkbox text-brand-blue rounded focus:ring-brand-blue"> <span class="text-sm text-slate-600">Infantil</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="form-checkbox text-brand-blue rounded focus:ring-brand-blue"> <span class="text-sm text-slate-600">Shows</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="form-checkbox text-brand-blue rounded focus:ring-brand-blue"> <span class="text-sm text-slate-600">Feiras</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="form-checkbox text-brand-blue rounded focus:ring-brand-blue"> <span class="text-sm text-slate-600">Religioso</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="form-checkbox text-brand-blue rounded focus:ring-brand-blue"> <span class="text-sm text-slate-600">Formaturas</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Seção 3 -->
+                    <div>
+                        <h3 class="font-bold text-lg mb-6 flex items-center gap-2 text-brand-dark"><i class="fa-solid fa-ruler-combined text-brand-blue"></i> 3. Estrutura do Local</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Capacidade Mínima (Pessoas)</label>
+                                <input type="number" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md focus:ring-2 focus:ring-brand-blue outline-none" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Capacidade Máxima (Pessoas)</label>
+                                <input type="number" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md focus:ring-2 focus:ring-brand-blue outline-none" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="alert('Formulário enviado com sucesso para a equipe KD Eventos! Entraremos em contato em breve.')" class="w-full bg-brand-dark hover:bg-black text-white font-bold text-lg py-4 rounded-md shadow-xl transition mt-4">
+                        Enviar Solicitação de Cadastro
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-dark text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            <div>
+                <div class="flex items-center justify-center md:justify-start gap-2 mb-4">
+                    <span class="font-extrabold text-2xl tracking-tight text-white">KD<span class="text-brand-blue font-light">Eventos</span></span>
+                </div>
+                <p class="text-sm">A excelência em conectar você aos melhores profissionais de eventos.</p>
+            </div>
+            <div class="flex justify-center gap-6">
+                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-instagram text-xl"></i></a>
+                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-linkedin text-xl"></i></a>
+            </div>
+            <div class="md:text-right text-xs">
+                <p>© 2026 KD Eventos. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script IA Planner -->
+    <script>
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-sm');
+            } else {
+                nav.classList.remove('shadow-sm');
+            }
+        });
+
+        function handleAIPress(event) {
+            if (event.key === 'Enter') simulateAI();
+        }
+
+        function simulateAI() {
+            const input = document.getElementById('ai-input');
+            const chatArea = document.getElementById('chat-messages');
+            const text = input.value.trim();
+            const btn = document.getElementById('ai-btn');
+
+            if (!text) return;
+
+            const userMsgHTML = `
+                <div class="flex gap-3 max-w-[85%] self-end flex-row-reverse animate-slide-in mt-4">
+                    <div class="w-8 h-8 bg-slate-200 flex items-center justify-center text-slate-500 shrink-0 mt-1 rounded-full">
+                        <i class="fa-solid fa-user text-xs"></i>
+                    </div>
+                    <div class="bg-brand-dark text-white px-4 py-3 rounded-tl-xl rounded-bl-xl rounded-br-xl text-sm leading-relaxed shadow-md">
+                        ${text}
+                    </div>
+                </div>
+            `;
+            chatArea.insertAdjacentHTML('beforeend', userMsgHTML);
+            input.value = '';
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+            chatArea.scrollTop = chatArea.scrollHeight;
+
+            setTimeout(() => {
+                const aiTypingId = 'typing-' + Date.now();
+                const typingHTML = `
+                    <div id="${aiTypingId}" class="flex gap-3 max-w-[85%] animate-fade-in mt-4">
+                        <div class="w-8 h-8 bg-brand-dark flex items-center justify-center text-white shrink-0 mt-1">
+                            <span class="font-serif text-xs font-bold">KD</span>
+                        </div>
+                        <div class="bg-slate-100 text-slate-700 px-4 py-3 rounded-tr-xl rounded-br-xl rounded-bl-xl text-sm font-mono typing-cursor border border-slate-200">
+                            Processando o escopo do evento...
+                        </div>
+                    </div>
+                `;
+                chatArea.insertAdjacentHTML('beforeend', typingHTML);
+                chatArea.scrollTop = chatArea.scrollHeight;
+
+                setTimeout(() => {
+                    document.getElementById(aiTypingId).remove();
+                    btn.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
+                    
+                    const aiResponseHTML = `
+                        <div class="flex gap-3 max-w-[90%] animate-slide-in mt-2">
+                            <div class="w-8 h-8 bg-brand-dark flex items-center justify-center text-white shrink-0 mt-1">
+                                <span class="font-serif text-xs font-bold">KD</span>
+                            </div>
+                            <div class="bg-white text-slate-800 px-5 py-4 rounded-tr-xl rounded-br-xl rounded-bl-xl text-sm shadow-md border border-slate-200 w-full">
+                                <p class="font-bold mb-4 text-brand-dark">Excelente! Preparei um checklist premium para o seu evento:</p>
+                                
+                                <div class="space-y-3 mb-5">
+                                    <label class="flex items-start gap-3 cursor-pointer group">
+                                        <input type="checkbox" class="mt-1 accent-brand-dark w-4 h-4">
+                                        <div class="flex-1">
+                                            <span class="font-bold text-slate-800 group-hover:text-brand-blue transition">1. Espaço ou Local</span>
+                                            <p class="text-xs text-slate-500 mt-0.5">Encontre opções com infraestrutura adequada.</p>
+                                            <a href="#fornecedores" class="text-xs font-semibold text-brand-blue hover:text-brand-dark mt-1 inline-block transition">Procurar Locais &rarr;</a>
+                                        </div>
+                                    </label>
+                                    <div class="border-t border-slate-100 w-full"></div>
+                                    
+                                    <label class="flex items-start gap-3 cursor-pointer group">
+                                        <input type="checkbox" class="mt-1 accent-brand-dark w-4 h-4">
+                                        <div class="flex-1">
+                                            <span class="font-bold text-slate-800 group-hover:text-brand-blue transition">2. Buffet & Gastronomia</span>
+                                            <p class="text-xs text-slate-500 mt-0.5">Defina o menu ideal para seus convidados.</p>
+                                            <a href="#fornecedores" class="text-xs font-semibold text-brand-blue hover:text-brand-dark mt-1 inline-block transition">Procurar Buffets &rarr;</a>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <button class="w-full bg-slate-100 hover:bg-slate-200 text-brand-dark font-bold py-2.5 rounded-md text-xs transition">
+                                    Salvar Meu Projeto
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    chatArea.insertAdjacentHTML('beforeend', aiResponseHTML);
+                    chatArea.scrollTop = chatArea.scrollHeight;
+
+                }, 2000);
+            }, 300);
+        }
+    </script>
+</body>
+</html>
